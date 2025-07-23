@@ -1,38 +1,392 @@
+/* client/src/App.css */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding-bottom: 30px; /* Add some padding at the bottom */
+}
+
+.App-header {
+  background-color: #007bff;
+  padding: 20px;
   color: white;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header h1 {
+  margin: 0;
+  font-size: 2.5em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+main {
+  width: 100%;
+  max-width: 1200px; /* Increased max-width for two columns */
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Default to column on small screens */
+  gap: 30px; /* Gap between panels */
+  align-items: center;
+}
+
+.location-input-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px; /* Reduced margin, as content below is now conditionally rendered */
+  width: 100%; /* Take full width within main */
+}
+
+.location-input {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+  flex-grow: 1; /* Allows input to grow */
+  max-width: 400px; /* Max width for input */
+}
+
+.search-button {
+  padding: 12px 25px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.search-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #dc3545;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.initial-message {
+  margin-top: 50px;
+  font-size: 1.2em;
+  color: #666;
+  font-style: italic;
+}
+
+/* Two-Column Layout for Content */
+.content-container {
+  display: flex;
+  flex-direction: column; /* Default to column on small screens */
+  gap: 30px;
+  width: 100%;
+}
+
+.left-panel, .right-panel {
+  background-color: #fdfdfd; /* Lighter background for panels */
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  flex: 1; /* Allow panels to grow */
+  min-width: 300px; /* Minimum width for panels */
+}
+
+
+/* Weather Display Styles (mostly unchanged, just ensure they fit their panel) */
+.weather-display-container {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none; /* Remove top border as parent panel has one */
+}
+
+.city-name {
+  font-size: 2.2em;
+  color: #007bff;
+  margin-bottom: 25px;
+}
+
+.current-weather, .daily-forecast {
+  margin-bottom: 40px;
+  padding: 20px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.current-weather h3, .daily-forecast h3 {
+  color: #0056b3;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+}
+
+.current-weather-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.weather-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.temperature {
+  font-size: 3.5em;
+  font-weight: bold;
+  color: #343a40;
+}
+
+.description {
+  font-size: 1.5em;
+  font-style: italic;
+  color: #555;
+}
+
+.current-weather-details p {
+  margin: 5px 0;
+  font-size: 1.1em;
+  color: #666;
+}
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.forecast-card {
+  background-color: #e9f5ff;
+  border: 1px solid #cce5ff;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.forecast-card:hover {
+  transform: translateY(-5px);
+}
+
+.forecast-date {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #0056b3;
+}
+
+.weather-icon-small {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 5px;
+}
+
+.forecast-card p {
+  margin: 3px 0;
+  font-size: 0.95em;
+  color: #444;
+}
+
+.forecast-description {
+  font-style: italic;
+  font-size: 0.9em;
+  color: #777;
+}
+
+/* Charts Section */
+.weather-charts {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #eee;
+}
+
+.weather-charts h3 {
+  color: #0056b3;
+  margin-bottom: 25px;
+  font-size: 1.8em;
+}
+
+.weather-charts h4 {
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  font-size: 1.4em;
+}
+
+/* Chat Component Styles */
+.chat-container {
+  margin-top: 0; /* Remove top margin as parent panel has padding */
+  padding: 0; /* Remove padding as parent panel has padding */
+  border: none; /* Remove border as parent panel has one */
+  box-shadow: none; /* Remove shadow as parent panel has one */
+  height: 100%; /* Take full height of its panel */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.chat-container h3 {
+  color: #0056b3;
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 1.8em;
+}
+
+.messages-display {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  min-height: 200px;
+  max-height: 500px; /* Adjust height for larger view */
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1; /* Allows messages to take up available height */
+}
+
+.message {
+  padding: 8px 12px;
+  border-radius: 15px;
+  max-width: 80%;
+  word-wrap: break-word;
+  font-size: 0.95em;
+}
+
+.message.user {
+  align-self: flex-end;
+  background-color: #dcf8c6;
+  color: #333;
+}
+
+.message.ai {
+  align-self: flex-start;
+  background-color: #e2e2e2;
+  color: #333;
+}
+
+.message.system {
+    align-self: center;
+    background-color: #ffe0b2;
+    color: #795548;
+    font-weight: bold;
+    text-align: center;
+}
+
+.no-messages {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.message.ai.typing {
+  font-style: italic;
+  color: #555;
+  background: none;
+  padding: 0;
+  align-self: flex-start;
+}
+
+.chat-error {
+  color: #dc3545;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.chat-input-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.chat-input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.send-button {
+  padding: 12px 25px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.send-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.send-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Media queries for responsive layout */
+@media (min-width: 769px) {
+  main {
+    flex-direction: column; /* Keep column for medium screens too */
   }
-  to {
-    transform: rotate(360deg);
+
+  .content-container {
+    flex-direction: row; /* Two columns on larger screens */
+    align-items: flex-start; /* Align content to the top */
+  }
+
+  .left-panel, .right-panel {
+    flex: 1; /* Distribute space equally */
+  }
+}
+
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 2em;
+  }
+
+  .location-input-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .location-input, .search-button {
+    width: 80%;
+    max-width: unset;
+  }
+
+  .forecast-grid {
+    grid-template-columns: 1fr; /* Stack cards on small screens */
   }
 }
