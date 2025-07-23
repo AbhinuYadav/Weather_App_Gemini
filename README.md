@@ -80,3 +80,32 @@ Follow these instructions to set up and run the project locally on your machine.
 ```bash
 git clone [https://github.com/your-username/Weather_App_Gemini.git](https://github.com/your-username/Weather_App_Gemini.git)
 cd Weather_App_Gemini
+
+Project Structure
+Weather_App_Gemini/
+├── client/                     # React Frontend
+│   ├── public/                 # Public assets
+│   ├── src/
+│   │   ├── components/         # Reusable React components (WeatherDisplay, Chat)
+│   │   │   ├── Chat.js
+│   │   │   └── WeatherDisplay.js
+│   │   ├── services/           # API interaction functions (weatherService.js)
+│   │   │   └── weatherService.js
+│   │   ├── App.css
+│   │   ├── App.js              # Main React application component
+│   │   └── index.js            # React entry point
+│   ├── .gitignore              # Git ignore for client-specific files
+│   ├── package.json
+│   └── README.md (Optional for client)
+├── server/                     # Node.js Express Backend
+│   ├── routes/                 # API route handlers
+│   │   ├── chatRoutes.js       # Handles Gemini API interaction
+│   │   └── weatherRoutes.js    # Handles OpenWeatherMap API interaction
+│   ├── .env.example            # Example .env file (DO NOT COMMIT YOUR REAL .env)
+│   ├── .gitignore              # Git ignore for server-specific files (.env included)
+│   ├── index.js                # Main Express application file
+│   └── package.json
+├── .gitignore                  # Main project .gitignore
+├── weather_app.jpg             # Your first screenshot
+├── weather_app_1.jpg           # Your second screenshot
+└── README.md                   # This file!
